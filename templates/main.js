@@ -1,3 +1,7 @@
+
+
+function main(team){
+return  `
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,10 +27,15 @@
     <div class="container">
         <div class="row">
             <div class="team-area col-12 d-flex justify-content-center">
-                {{ team }}
+                ${team}
             </div>
         </div>
     </div>
 </body>
 
 </html>
+`
+}
+
+
+module.exports=main

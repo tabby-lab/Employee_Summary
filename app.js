@@ -9,12 +9,20 @@ const OUTPUT_DIR = path.resolve(__dirname, "output")
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+let id=1
+let allEmployees=[]
+
+const mainHtml=require("./templates/main")
+const engineerHtml=require("./templates/engineer")
+const internHtml=require("./templates/intern")
+const managerHtml=require("./templates/manager")
+let html=""
 
 function askQuestion() {
     inquirer.prompt({
         type: "list",
         message: "What do you want to do?",
-        choices: ["add manager", "add engineer", "add intern"],
+        choices: ["add manager", "add engineer", "add intern","quit"],
         name: "addEmployee"
 
     }).then(function (input) {
@@ -28,20 +36,108 @@ function askQuestion() {
             case "add intern":
                 addIntern()
                 break
+            case "quit":
+                makeHtml()
+                    return
         }
     })
 }
+function makeHtml(){
+    let finalhtml=mainHtml(html)
+    fs.writeFile("./index.html",finalhtml,function(error){})
+}
 
 function addManager() {
+   inquirer.prompt([{
+       type:"input",
+       message: "What is your name?",
+       name: "employeeName"
 
+   },{
+       type:"input",
+       message:"What is you email?",
+       name:"employeeEmail"
+   },{
+       type:"input",
+       message:"What is your office number?",
+       name:"employeeOffice"
+   }]).then(function(input){
+       let manager=new Manager(input.employeeName,id++,input.employeeEmail,input.employeeOffice)
+       allEmployees.push(manager)
+        
+        for (let index = 0; index < allEmployees.length; index++) {
+             
+               if (allEmployees[index].getRole()==="Manager"){
+                   html=html+managerHtml(allEmployees[index])
+               }
+            
+        }
+       console.log(allEmployees)
+       console.log(html)
+       askQuestion();
+   })
 }
 
 function addEngineer(){
+ inquirer.prompt([{
+     type:"input",
+     message:"What is your name?",
+     name:"employeeName"
+ },{
+     type:"input",
+     message:"What is your email?",
+     name:"employeeEmail"
+ },{
+     type:"input",
+     message:"What is your Github?",
+     name:"employeeGithub"
+ }]).then(function(input){
+     let engineer= new Engineer(input.employeeName,id++,input.employeeEmail,input.employeeGithub)
+     allEmployees.push(engineer)
 
+     for (let index = 0; index < allEmployees.length; index++) {
+             
+        if (allEmployees[index].getRole()==="Engineer"){
+            html=html+engineerHtml(allEmployees[index])
+        }
+     
+ }
+
+     console.log(allEmployees)
+     console.log(html)
+     askQuestion();
+ })
 }
 
 function addIntern(){
+inquirer.prompt([{
+    type:"input",
+    message:"What is your name?",
+    name:"employeeName"
+},{
+    type:"input",
+    message:"What is your email?",
+    name:"employeeEmail"
+},{
+    type:"input",
+    message:"What is your school?",
+    name:"employeeSchool"
+}]).then(function(input){
+    let intern= new Intern(input.employeeName,id++,input.employeeEmail,input.employeeSchool)
+    allEmployees.push(intern)
 
+    for (let index = 0; index < allEmployees.length; index++) {
+             
+        if (allEmployees[index].getRole()==="Intern"){
+            html=html+internHtml(allEmployees[index])
+        }
+     
+ }
+
+    console.log(allEmployees)
+    console.log(html)
+    askQuestion();
+})
 
 }
 askQuestion();
