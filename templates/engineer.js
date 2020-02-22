@@ -1,6 +1,12 @@
+//This use to be my HTML for engineer, but i changed it to js so I could just return HTML
+//Use data(linked to the other file "Engineer" with a capital "E")
+//create a function that renders engineer
+//return using backticks the html
+//This is the syntax you will need ${data.name} for all data.
 function engineer(data){
     return `<div class="card employee-card">
     <div class="card-header">
+    
         <h2 class="card-title">${data.name}</h2>
         <h3 class="card-title"><i class="fas fa-glasses mr-2"></i>Engineer</h3>
     </div>

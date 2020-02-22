@@ -1,3 +1,4 @@
+//Creating variables for each employee and using require method to import data for the library
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -9,15 +10,20 @@ const OUTPUT_DIR = path.resolve(__dirname, "output")
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+
+//This id is the id number for employee...start at 1 bc we will ++ later..
 let id=1
+//Empty array for the employees
 let allEmployees=[]
 
+//This manHtml is grabbing all the js files for the employees and rendering them into html
 const mainHtml=require("./templates/main")
 const engineerHtml=require("./templates/engineer")
 const internHtml=require("./templates/intern")
 const managerHtml=require("./templates/manager")
 let html=""
 
+//Create ask question func to ask all questions for employees
 function askQuestion() {
     inquirer.prompt({
         type: "list",
@@ -25,6 +31,10 @@ function askQuestion() {
         choices: ["add manager", "add engineer", "add intern","quit"],
         name: "addEmployee"
 
+        //Using all inputs a user puts in and calling
+        //The SWITCH function compares one value against a list of values, and returns a result corresponding to the first match. SWITCH takes an optional default value which is used when no match is found.
+        //break makes sure its not returnng and going to the NEXT question
+        //return means the app ends
     }).then(function (input) {
         switch (input.addEmployee) {
             case "add manager":
@@ -47,6 +57,14 @@ function makeHtml(){
     fs.writeFile("./index.html",finalhtml,function(error){})
 }
 
+//Create func for manager
+//Inquire means that it's taking the users info and giving it to the server
+//This is a "prompt" and what you need to ask your employee a question
+       //type:"input",
+       //message: "What is your name?",
+       //name: "employeeName"
+ //Do the same for each employee...      
+
 function addManager() {
    inquirer.prompt([{
        type:"input",
@@ -61,7 +79,10 @@ function addManager() {
        type:"input",
        message:"What is your office number?",
        name:"employeeOffice"
+       //Use .then function for all the inputs
    }]).then(function(input){
+       //You ALWAYS need a "new" for a constructor..
+       //Then you need to reference all your inputs and push "manager" to allEmployees
        let manager=new Manager(input.employeeName,id++,input.employeeEmail,input.employeeOffice)
        allEmployees.push(manager)
         
