@@ -1,0 +1,15 @@
+body{
+    background-color: cadetblue;
+}
+.team-heading{
+    background-color: rgb(53, 81, 207);
+}
+
+.card-header{
+    background-color: rgb(53, 81, 207);  
+}
+
+.card-body{
+    background-color: rgb(167, 159, 159);
+   
+}
