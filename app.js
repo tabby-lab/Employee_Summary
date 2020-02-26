@@ -53,6 +53,19 @@ function askQuestion() {
     })
 }
 function makeHtml(){
+    for (let index = 0; index < allEmployees.length; index++) {
+             
+        if (allEmployees[index].getRole()==="Manager"){
+            html=html+managerHtml(allEmployees[index])
+        }
+        else if (allEmployees[index].getRole()==="Engineer"){
+            html=html+engineerHtml(allEmployees[index])
+        }
+        else if (allEmployees[index].getRole()==="Intern"){
+            html=html+internHtml(allEmployees[index])
+
+        }
+ }
     let finalhtml=mainHtml(html)
     fs.writeFile("./index.html",finalhtml,function(error){})
 }
@@ -86,13 +99,13 @@ function addManager() {
        let manager=new Manager(input.employeeName,id++,input.employeeEmail,input.employeeOffice)
        allEmployees.push(manager)
         
-        for (let index = 0; index < allEmployees.length; index++) {
+        // for (let index = 0; index < allEmployees.length; index++) {
              
-               if (allEmployees[index].getRole()==="Manager"){
-                   html=html+managerHtml(allEmployees[index])
-               }
+        //        if (allEmployees[index].getRole()==="Manager"){
+        //            html=html+managerHtml(allEmployees[index])
+        //        }
             
-        }
+        // }
        console.log(allEmployees)
        console.log(html)
        askQuestion();
@@ -116,13 +129,13 @@ function addEngineer(){
      let engineer= new Engineer(input.employeeName,id++,input.employeeEmail,input.employeeGithub)
      allEmployees.push(engineer)
 
-     for (let index = 0; index < allEmployees.length; index++) {
+//      for (let index = 0; index < allEmployees.length; index++) {
              
-        if (allEmployees[index].getRole()==="Engineer"){
-            html=html+engineerHtml(allEmployees[index])
-        }
+//         if (allEmployees[index].getRole()==="Engineer"){
+//             html=html+engineerHtml(allEmployees[index])
+//         }
      
- }
+//  }
 
      console.log(allEmployees)
      console.log(html)
@@ -147,13 +160,13 @@ inquirer.prompt([{
     let intern= new Intern(input.employeeName,id++,input.employeeEmail,input.employeeSchool)
     allEmployees.push(intern)
 
-    for (let index = 0; index < allEmployees.length; index++) {
+//     for (let index = 0; index < allEmployees.length; index++) {
              
-        if (allEmployees[index].getRole()==="Intern"){
-            html=html+internHtml(allEmployees[index])
-        }
+//         if (allEmployees[index].getRole()==="Intern"){
+//             html=html+internHtml(allEmployees[index])
+//         }
      
- }
+//  }
 
     console.log(allEmployees)
     console.log(html)
@@ -185,4 +198,4 @@ askQuestion();
 // and Intern classes should all extend from a class named Employee; see the directions
 // for further information. Be sure to test out each class and verify it generates an 
 // object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work!```
+// for the provided `render` function to work!``
